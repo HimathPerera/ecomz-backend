@@ -9,6 +9,7 @@ type Item{
   description: String!
   creator:User!
 }
+
 type ItemMini{
   _id: ID!
   name: String!
@@ -45,6 +46,7 @@ input SearchInput{
 
 type RootQuery{
   items:[Item!]!
+  users:[User!]!
   search(key:SearchInput):[Item!]!
   login(email:String! , password :String!):AuthData!
 },

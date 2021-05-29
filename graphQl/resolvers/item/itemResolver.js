@@ -75,18 +75,23 @@ module.exports = {
           throw err;
         });
     } else {
-      console.log("not a admin");
       throw new Error("only admins can add items");
     }
   },
 
   deleteItem: async (args, req) => {
-    try {
-      const itemResult = await Item.findById(args.itemId);
-      await Item.deleteOne({ _id: args.itemId });
-      return itemResult;
-    } catch (err) {
-      throw err;
+    let admin = req.isAdmin;
+
+    if (admin == true) {
+      try {
+        const itemResult = await Item.findById(args.itemId);
+        await Item.deleteOne({ _id: args.itemId });
+        return itemResult;
+      } catch (err) {
+        throw err;
+      }
+    } else {
+      throw new Error("only admins can delete items");
     }
   },
 };

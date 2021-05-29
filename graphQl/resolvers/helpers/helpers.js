@@ -1,7 +1,7 @@
 const User = require("../../../models/user.model");
 const Item = require("../../../models/item.model");
 
-//try catch block not working(found the bug)
+//Place of creating relatioships
 const itemHandle = async (itemIds) => {
   try {
     const itemResult = await Item.find({ _id: { $in: itemIds } });

@@ -2,8 +2,24 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const User = require("../../../models/user.model");
+const { itemHandle } = require("../helpers/helpers");
 
 module.exports = {
+  users: async () => {
+    try {
+      const userResult = await User.find();
+      return userResult.map((item) => {
+        return {
+          ...item._doc,
+          createdItems: itemHandle.bind(this, item._doc.createdItems),
+        };
+      });
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
+  },
+
   createUser: async (args) => {
     let exsistingUser;
     try {
